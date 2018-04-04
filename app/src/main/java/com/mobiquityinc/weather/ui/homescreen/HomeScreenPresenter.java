@@ -1,14 +1,14 @@
 package com.mobiquityinc.weather.ui.homescreen;
 
-import com.mobiquityinc.weather.domain.FavouritesRepository;
+import com.mobiquityinc.weather.domain.FavouriteCityRepository;
 
 public class HomeScreenPresenter implements HomeScreenContract.Presenter {
 
-    private FavouritesRepository favouritesRepository;
+    private FavouriteCityRepository mFavouriteCityRepository;
     private HomeScreenContract.View view;
 
-    public HomeScreenPresenter(FavouritesRepository favouritesRepository, HomeScreenContract.View view) {
-        this.favouritesRepository = favouritesRepository;
+    public HomeScreenPresenter(FavouriteCityRepository favouriteCityRepository, HomeScreenContract.View view) {
+        this.mFavouriteCityRepository = favouriteCityRepository;
         this.view = view;
 
         view.setPresenter(this);

@@ -1,11 +1,16 @@
 package com.mobiquityinc.weather.domain.entities;
 
-class LatLon {
+public class LatLon {
 
     private double lon;
     private double lat;
 
     public LatLon() {
+    }
+
+    public LatLon(double lon, double lat) {
+        this.lon = lon;
+        this.lat = lat;
     }
 
     public double getLon() {

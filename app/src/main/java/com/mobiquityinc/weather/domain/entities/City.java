@@ -1,13 +1,20 @@
 package com.mobiquityinc.weather.domain.entities;
 
-public class FavouriteCity {
+public class City {
 
     private int id;
     private String name;
     private LatLon coord;
     private String country;
 
-    public FavouriteCity() {
+    public City() {
+    }
+
+    public City(int id, String name, LatLon coord, String country) {
+        this.id = id;
+        this.name = name;
+        this.coord = coord;
+        this.country = country;
     }
 
     public int getId() {

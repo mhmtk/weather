@@ -33,7 +33,12 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 
-    //ui
+    // ui
     implementation 'com.jakewharton:butterknife:8.8.1'
 
+    // json
+    // JSON Parsing
+    implementation'com.fasterxml.jackson.core:jackson-databind:2.8.3'
+    implementation'com.fasterxml.jackson.core:jackson-core:2.8.3'
+    implementation'com.fasterxml.jackson.core:jackson-annotations:2.8.3'
 }
