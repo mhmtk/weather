@@ -1,11 +1,11 @@
-package com.mobiquityinc.weather.entities;
+package com.mobiquityinc.weather.domain.entities;
 
-class LonLat {
+class LatLon {
 
     private double lon;
     private double lat;
 
-    public LonLat() {
+    public LatLon() {
     }
 
     public double getLon() {
@@ -23,4 +23,5 @@ class LonLat {
     public void setLat(double lat) {
         this.lat = lat;
     }
+
 }

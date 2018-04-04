@@ -1,4 +1,4 @@
-package com.mobiquityinc.weather.entities;
+package com.mobiquityinc.weather.domain.entities;
 
 class Wind {
 

@@ -1,6 +1,7 @@
 package com.mobiquityinc.weather;
 
 
+import com.mobiquityinc.weather.domain.FavouritesRepository;
 import com.mobiquityinc.weather.ui.homescreen.HomeScreenContract;
 import com.mobiquityinc.weather.ui.homescreen.HomeScreenPresenter;
 
@@ -18,6 +19,8 @@ public class HomeScreenPresenterTests {
 
     @Mock HomeScreenContract.View mockView;
     private HomeScreenPresenter presenter;
+    @Mock
+    FavouritesRepository mockFavouritesRepository;
 
 
     @Before
@@ -27,7 +30,7 @@ public class HomeScreenPresenterTests {
 
     @Test
     public void createPresenter_setsView() {
-        presenter = new HomeScreenPresenter(mockView);
+        presenter = new HomeScreenPresenter(mockFavouritesRepository, mockView);
         verify(mockView).setPresenter(presenter);
     }
 }

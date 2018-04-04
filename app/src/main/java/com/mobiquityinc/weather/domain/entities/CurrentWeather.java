@@ -1,10 +1,10 @@
-package com.mobiquityinc.weather.entities;
+package com.mobiquityinc.weather.domain.entities;
 
 import java.util.ArrayList;
 
 public class CurrentWeather {
 
-    private LonLat coord;
+    private LatLon coord;
     private ArrayList<Weather> weather;
     private String base;
     private Main main;
@@ -20,11 +20,11 @@ public class CurrentWeather {
     public CurrentWeather() {
     }
 
-    public LonLat getCoord() {
+    public LatLon getCoord() {
         return coord;
     }
 
-    public void setCoord(LonLat coord) {
+    public void setCoord(LatLon coord) {
         this.coord = coord;
     }
 
