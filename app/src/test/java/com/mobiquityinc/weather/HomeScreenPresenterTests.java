@@ -22,7 +22,6 @@ public class HomeScreenPresenterTests {
     @Mock
     FavouriteCityRepository mMockFavouriteCityRepository;
 
-
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
@@ -33,4 +32,19 @@ public class HomeScreenPresenterTests {
         presenter = new HomeScreenPresenter(mMockFavouriteCityRepository, mockView);
         verify(mockView).setPresenter(presenter);
     }
+
+    @Test
+    public void start_initiatesUI() {
+        presenter = new HomeScreenPresenter(mMockFavouriteCityRepository, mockView);
+        presenter.start();
+        verify(mockView).initiateUI();
+    }
+
+    @Test
+    public void addCityButtonClicked_startsMapFragment() {
+        presenter = new HomeScreenPresenter(mMockFavouriteCityRepository, mockView);
+        presenter.addCityButtonClicked();
+        verify(mockView).startMapFragment();
+    }
+
 }
