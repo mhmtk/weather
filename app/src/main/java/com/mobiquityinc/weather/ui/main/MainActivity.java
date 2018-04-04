@@ -6,13 +6,16 @@ import android.widget.FrameLayout;
 
 import com.mobiquityinc.weather.R;
 import com.mobiquityinc.weather.domain.entities.City;
+import com.mobiquityinc.weather.domain.entities.LatLon;
 import com.mobiquityinc.weather.ui.homescreen.HomeScreenFragment;
+import com.mobiquityinc.weather.ui.mapscreen.MapFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements MainContract.View,
-        HomeScreenFragment.HomeScreenActionListener {
+        HomeScreenFragment.HomeScreenActionListener,
+        MapFragment.MapScreenActionListener{
 
     @BindView(R.id.fragment_container_frame_layout)
     protected FrameLayout fragmentContainer;
@@ -55,5 +58,19 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
                 .beginTransaction()
                 .add(R.id.fragment_container_frame_layout, homeScreenFragment)
                 .commit();
+    }
+
+    @Override
+    public void launchMap() {
+        MapFragment mapFragment = MapFragment.getInstance();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container_frame_layout, mapFragment)
+                .addToBackStack("map")
+                .commit();
+    }
+
+    @Override
+    public void onLocationSelected(LatLon latLon) {
+
     }
 }

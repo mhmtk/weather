@@ -9,6 +9,8 @@ public class MainContract {
     interface View extends BaseView<Presenter> {
 
         void displayHomeScreen();
+
+        void launchMap();
     }
 
     interface Presenter extends BasePresenter {

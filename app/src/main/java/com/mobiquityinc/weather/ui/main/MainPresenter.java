@@ -23,6 +23,6 @@ public class MainPresenter implements MainContract.Presenter {
 
     @Override
     public void addCityClicked() {
-
+        view.launchMap();
     }
 }
