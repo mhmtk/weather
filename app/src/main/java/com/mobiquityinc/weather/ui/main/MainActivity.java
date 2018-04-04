@@ -4,9 +4,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.FrameLayout;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.mobiquityinc.weather.R;
-import com.mobiquityinc.weather.domain.entities.City;
-import com.mobiquityinc.weather.domain.entities.LatLon;
+import com.mobiquityinc.weather.domain.entities.FavouriteCity;
 import com.mobiquityinc.weather.ui.homescreen.HomeScreenFragment;
 import com.mobiquityinc.weather.ui.mapscreen.MapFragment;
 
@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     }
 
     @Override
-    public void onCitySelected(City city) {
+    public void onCitySelected(FavouriteCity city) {
         presenter.citySelected(city);
     }
 
@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     }
 
     @Override
-    public void onLocationSelected(LatLon latLon) {
+    public void onLocationSaved(LatLng latLng) {
 
     }
 }

@@ -1,8 +1,8 @@
 package com.mobiquityinc.weather.ui.homescreen;
 
-import com.mobiquityinc.weather.domain.entities.City;
+import com.mobiquityinc.weather.domain.entities.FavouriteCity;
 
 interface CityItemClickedListener {
 
-    void onCityClicked(City city);
+    void onCityClicked(FavouriteCity city);
 }

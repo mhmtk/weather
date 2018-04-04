@@ -1,9 +1,10 @@
 package com.mobiquityinc.weather.domain;
 
 import android.content.SharedPreferences;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mobiquityinc.weather.domain.entities.City;
+import com.mobiquityinc.weather.domain.entities.FavouriteCity;
 
 import java.io.IOException;
 import java.util.HashSet;
@@ -22,7 +23,7 @@ public class FavouriteCityRepositoryImpl implements FavouriteCityRepository {
     }
 
     @Override
-    public void addFavourite(City city) throws JsonProcessingException {
+    public void addFavourite(FavouriteCity city) throws JsonProcessingException {
         Set<String> favouriteCitiesStringSet = sharedPreferences.getStringSet(FAVOURITE_CITIES_KEY, new HashSet<String>());
         favouriteCitiesStringSet.add(objectMapper.writeValueAsString(city));
 
@@ -32,17 +33,17 @@ public class FavouriteCityRepositoryImpl implements FavouriteCityRepository {
     }
 
     @Override
-    public Set<City> removeFavourite(City city) throws IOException {
-        Set<City> favouriteCitiesSet = new HashSet<>();
+    public Set<FavouriteCity> removeFavourite(FavouriteCity city) throws IOException {
+        Set<FavouriteCity> favouriteCitiesSet = new HashSet<>();
         Set<String> favouriteCitiesStringSet = sharedPreferences.getStringSet(FAVOURITE_CITIES_KEY, new HashSet<String>());
 
         for (String cityString : favouriteCitiesStringSet) {
-            favouriteCitiesSet.add(objectMapper.readValue(cityString, City.class));
+            favouriteCitiesSet.add(objectMapper.readValue(cityString, FavouriteCity.class));
         }
         favouriteCitiesSet.remove(city);
 
         favouriteCitiesStringSet = new HashSet<>();
-        for(City c : favouriteCitiesSet) {
+        for(FavouriteCity c : favouriteCitiesSet) {
             favouriteCitiesStringSet.add(objectMapper.writeValueAsString(c));
         }
 
@@ -54,12 +55,12 @@ public class FavouriteCityRepositoryImpl implements FavouriteCityRepository {
     }
 
     @Override
-    public Set<City> getFavourites() throws IOException {
-        Set<City> favouriteCitiesSet = new HashSet<>();
+    public Set<FavouriteCity> getFavourites() throws IOException {
+        Set<FavouriteCity> favouriteCitiesSet = new HashSet<>();
         Set<String> favouriteCitiesStringSet = sharedPreferences.getStringSet(FAVOURITE_CITIES_KEY, new HashSet<String>());
         for (String cityString :
                 favouriteCitiesStringSet) {
-            favouriteCitiesSet.add(objectMapper.readValue(cityString, City.class));
+            favouriteCitiesSet.add(objectMapper.readValue(cityString, FavouriteCity.class));
         }
         return favouriteCitiesSet;
     }

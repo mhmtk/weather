@@ -1,11 +1,10 @@
 package com.mobiquityinc.weather.ui.homescreen;
 
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mobiquityinc.weather.R;
-import com.mobiquityinc.weather.domain.entities.City;
+import com.mobiquityinc.weather.domain.entities.FavouriteCity;
 import com.mobiquityinc.weather.ui.view.RecyclerView;
 
 import butterknife.BindView;
@@ -16,7 +15,7 @@ public class CityItemView extends RecyclerView.ViewHolder implements View.OnClic
     @BindView(R.id.text_view_label)
     protected TextView labelTextView;
     private final CityItemClickedListener onClickListener;
-    private City city;
+    private FavouriteCity city;
 
     public CityItemView(final View itemView, final CityItemClickedListener onClickListener) {
         super(itemView);
@@ -25,9 +24,9 @@ public class CityItemView extends RecyclerView.ViewHolder implements View.OnClic
         itemView.setOnClickListener(this);
     }
 
-    public void bind(final City city) {
+    public void bind(final FavouriteCity city) {
         this.city = city;
-        labelTextView.setText(city.getName());
+        labelTextView.setText(city.getCityName());
     }
 
     @Override

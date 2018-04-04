@@ -6,4 +6,11 @@
 
     <include layout="@layout/content_map" />
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_select_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_margin="@dimen/fab_margin"/>
+
 </android.support.constraint.ConstraintLayout>
