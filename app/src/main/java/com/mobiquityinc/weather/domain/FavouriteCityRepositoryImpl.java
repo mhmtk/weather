@@ -23,11 +23,34 @@ public class FavouriteCityRepositoryImpl implements FavouriteCityRepository {
 
     @Override
     public void addFavourite(City city) throws JsonProcessingException {
+        Set<String> favouriteCitiesStringSet = sharedPreferences.getStringSet(FAVOURITE_CITIES_KEY, new HashSet<String>());
+        favouriteCitiesStringSet.add(objectMapper.writeValueAsString(city));
+
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        Set<String> favouritesCityStringSet = sharedPreferences.getStringSet(FAVOURITE_CITIES_KEY, new HashSet<String>());
-        favouritesCityStringSet.add(objectMapper.writeValueAsString(City.class));
-        editor.putStringSet(FAVOURITE_CITIES_KEY, favouritesCityStringSet);
+        editor.putStringSet(FAVOURITE_CITIES_KEY, favouriteCitiesStringSet);
         editor.apply();
+    }
+
+    @Override
+    public Set<City> removeFavourite(City city) throws IOException {
+        Set<City> favouriteCitiesSet = new HashSet<>();
+        Set<String> favouriteCitiesStringSet = sharedPreferences.getStringSet(FAVOURITE_CITIES_KEY, new HashSet<String>());
+
+        for (String cityString : favouriteCitiesStringSet) {
+            favouriteCitiesSet.add(objectMapper.readValue(cityString, City.class));
+        }
+        favouriteCitiesSet.remove(city);
+
+        favouriteCitiesStringSet = new HashSet<>();
+        for(City c : favouriteCitiesSet) {
+            favouriteCitiesStringSet.add(objectMapper.writeValueAsString(c));
+        }
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putStringSet(FAVOURITE_CITIES_KEY, favouriteCitiesStringSet);
+        editor.apply();
+
+        return favouriteCitiesSet;
     }
 
     @Override

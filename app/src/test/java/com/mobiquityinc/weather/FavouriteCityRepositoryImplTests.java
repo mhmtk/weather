@@ -46,7 +46,7 @@ public class FavouriteCityRepositoryImplTests {
         MockitoAnnotations.initMocks(this);
 
         when(mockSharedPreferences.edit()).thenReturn(mockEditor);
-        when(mockObjectMapper.writeValueAsString(City.class)).thenReturn(dummyCityString);
+        when(mockObjectMapper.writeValueAsString(any(City.class))).thenReturn(dummyCityString);
         when(mockObjectMapper.readValue(anyString(), eq(City.class))).thenReturn(dummyCity);
     }
 
@@ -54,8 +54,6 @@ public class FavouriteCityRepositoryImplTests {
     public void addFavourite_addInitial() throws JsonProcessingException {
         repository = new FavouriteCityRepositoryImpl(mockSharedPreferences, mockObjectMapper);
         repository.addFavourite(dummyCity);
-
-        getDummyCityStringHashSet();
 
         verify(mockEditor).putStringSet(FavouriteCityRepositoryImpl.FAVOURITE_CITIES_KEY, getDummyCityStringHashSet());
         verify(mockEditor).apply();
@@ -85,6 +83,18 @@ public class FavouriteCityRepositoryImplTests {
         Set<City> expected = new HashSet<>();
 
         assertEquals(expected, repository.getFavourites());
+    }
+
+    @Test
+    public void removeFavourite() throws IOException {
+        repository = new FavouriteCityRepositoryImpl(mockSharedPreferences, mockObjectMapper);
+        repository.removeFavourite(dummyCity);
+
+        when(mockSharedPreferences.getStringSet(eq(FavouriteCityRepositoryImpl.FAVOURITE_CITIES_KEY), any(Set.class)))
+                .thenReturn(getDummyCityStringHashSet());
+
+        verify(mockEditor).putStringSet(FavouriteCityRepositoryImpl.FAVOURITE_CITIES_KEY, new HashSet<String>());
+
     }
 
     private Set<String> getDummyCityStringHashSet() {

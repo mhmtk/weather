@@ -11,4 +11,6 @@ public interface FavouriteCityRepository {
     Set<City> getFavourites() throws IOException;
 
     void addFavourite(City city) throws JsonProcessingException;
+
+    Set<City> removeFavourite(City city) throws IOException;
 }
