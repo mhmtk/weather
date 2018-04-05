@@ -15,5 +15,6 @@ public interface CityScreenContract {
 
     interface Presenter extends BasePresenter {
 
+        void stop();
     }
 }

@@ -1,30 +1,27 @@
 package com.mobiquityinc.weather.ui.cityscreen;
 
-import android.os.AsyncTask;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.android.gms.maps.model.LatLng;
 import com.mobiquityinc.weather.domain.FavouriteCityRepository;
 import com.mobiquityinc.weather.domain.entities.Forecast;
+import com.mobiquityinc.weather.network.ApiManager;
 import com.mobiquityinc.weather.network.DownloadForecast;
 
 public class CityScreenPresenter implements CityScreenContract.Presenter, DownloadForecast.Callback {
 
     private LatLng latLng;
-    private final ObjectMapper objectMapper;
     private FavouriteCityRepository favouriteCityRepository;
+    private ApiManager apiManager;
     private final CityScreenContract.View view;
-    private AsyncTask<Double, Void, Forecast> forecastDownloadTask;
     private boolean downloaded;
 
     public CityScreenPresenter(LatLng latLng,
-            ObjectMapper objectMapper,
             FavouriteCityRepository favouriteCityRepository,
+            ApiManager apiManager,
             CityScreenContract.View view) {
         this.latLng = latLng;
-        this.objectMapper = objectMapper;
         this.favouriteCityRepository = favouriteCityRepository;
+        this.apiManager = apiManager;
         this.view = view;
         view.setPresenter(this);
     }
@@ -39,7 +36,7 @@ public class CityScreenPresenter implements CityScreenContract.Presenter, Downlo
 
     private void downloadForecast() {
         Double parameters[] = { latLng.latitude, latLng.longitude };
-        forecastDownloadTask = new DownloadForecast(this, objectMapper).execute(parameters);
+        apiManager.downloadForecast(this, parameters);
     }
 
     @Override
@@ -51,5 +48,10 @@ public class CityScreenPresenter implements CityScreenContract.Presenter, Downlo
             e.printStackTrace();
         }
         view.displayData(forecast);
+    }
+
+    @Override
+    public void stop() {
+        apiManager.cancelDownloadForecast();
     }
 }

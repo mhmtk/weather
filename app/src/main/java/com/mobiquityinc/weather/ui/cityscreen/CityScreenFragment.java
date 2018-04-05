@@ -17,6 +17,7 @@ import com.mobiquityinc.weather.R;
 import com.mobiquityinc.weather.domain.FavouriteCityRepositoryImpl;
 import com.mobiquityinc.weather.domain.entities.Forecast;
 import com.mobiquityinc.weather.domain.entities.ForecastBlock;
+import com.mobiquityinc.weather.network.ApiManagerImpl;
 import com.mobiquityinc.weather.network.JsonObjectMapper;
 import com.mobiquityinc.weather.ui.view.RecyclerView;
 
@@ -71,9 +72,9 @@ public class CityScreenFragment extends Fragment implements CityScreenContract.V
         ButterKnife.bind(this, view);
         JsonObjectMapper objectMapper = new JsonObjectMapper();
         presenter = new CityScreenPresenter(((LatLng) getArguments().getParcelable(POSITION)),
-                objectMapper,
                 new FavouriteCityRepositoryImpl(PreferenceManager.getDefaultSharedPreferences(getActivity()),
                         objectMapper),
+                new ApiManagerImpl(objectMapper),
                 this);
         return view;
     }
@@ -82,6 +83,12 @@ public class CityScreenFragment extends Fragment implements CityScreenContract.V
     public void onResume() {
         super.onResume();
         presenter.start();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        presenter.stop();
     }
 
     @Override

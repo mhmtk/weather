@@ -13,7 +13,7 @@ public class UrlBuilderTests {
 
     @Test
     public void buildsCorrectly() {
-        assertEquals("api.openweathermap.org/data/2.5/forecast?lat=43.2&lon=33.2&APPID=".concat(BuildConfig.API_KEY),
+        assertEquals("api.openweathermap.org/data/2.5/mockForecast?lat=43.2&lon=33.2&APPID=".concat(BuildConfig.API_KEY),
                 UrlBuilder.getForecastUrl(43.2, 33.2));
     }
 }
