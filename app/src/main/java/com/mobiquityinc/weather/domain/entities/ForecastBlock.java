@@ -6,12 +6,12 @@ public class ForecastBlock {
 
     private int dt;
     private Main main;
-    private ArrayList<Weather> weathers;
+    private ArrayList<Weather> weather;
     private Clouds clouds;
     private Wind wind;
     private Rain rain;
     private Sys sys;
-    private String dtText;
+    private String dtTxt;
 
     public ForecastBlock() {
     }
@@ -32,12 +32,12 @@ public class ForecastBlock {
         this.main = main;
     }
 
-    public ArrayList<Weather> getWeathers() {
-        return weathers;
+    public ArrayList<Weather> getWeather() {
+        return weather;
     }
 
-    public void setWeathers(ArrayList<Weather> weathers) {
-        this.weathers = weathers;
+    public void setWeather(ArrayList<Weather> weather) {
+        this.weather = weather;
     }
 
     public Clouds getClouds() {
@@ -72,11 +72,11 @@ public class ForecastBlock {
         this.sys = sys;
     }
 
-    public String getDtText() {
-        return dtText;
+    public String getDtTxt() {
+        return dtTxt;
     }
 
-    public void setDtText(String dtText) {
-        this.dtText = dtText;
+    public void setDtTxt(String dtTxt) {
+        this.dtTxt = dtTxt;
     }
 }

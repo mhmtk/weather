@@ -2,7 +2,7 @@ package com.mobiquityinc.weather.domain.entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-class Rain {
+public class Rain {
 
     @JsonProperty("3h")
     private double threeHours;

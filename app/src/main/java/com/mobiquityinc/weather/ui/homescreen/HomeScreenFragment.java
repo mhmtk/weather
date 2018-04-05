@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.mobiquityinc.weather.R;
 import com.mobiquityinc.weather.domain.FavouriteCityRepositoryImpl;
-import com.mobiquityinc.weather.domain.entities.FavouriteCity;
+import com.mobiquityinc.weather.domain.entities.City;
 import com.mobiquityinc.weather.network.JsonObjectMapper;
 import com.mobiquityinc.weather.ui.view.RecyclerView;
 
@@ -30,7 +30,7 @@ public class HomeScreenFragment extends android.support.v4.app.Fragment implemen
     private HomeScreenActionListener callback;
 
     public interface HomeScreenActionListener {
-        void onCitySelected(final FavouriteCity city);
+        void onCitySelected(final City city);
         void onAddClicked();
     }
 
@@ -87,7 +87,7 @@ public class HomeScreenFragment extends android.support.v4.app.Fragment implemen
         favouriteCitiesRecyclerView.setItemAnimator(new DefaultItemAnimator());
         favouriteCitiesRecyclerView.setHasFixedSize(true);
         favouriteCitiesRecyclerView.setEmptyView(emptyTextView);
-        favouriteCitiesAdapter = new FavouriteCitiesAdapter(Collections.<FavouriteCity>emptyList(), this);
+        favouriteCitiesAdapter = new FavouriteCitiesAdapter(Collections.<City>emptyList(), this);
         favouriteCitiesRecyclerView.setAdapter(favouriteCitiesAdapter);
     }
 
@@ -97,12 +97,12 @@ public class HomeScreenFragment extends android.support.v4.app.Fragment implemen
     }
 
     @Override
-    public void launchCityScreen(FavouriteCity city) {
+    public void launchCityScreen(City city) {
         callback.onCitySelected(city);
     }
 
     @Override
-    public void setFavouriteCities(Set<FavouriteCity> favourites) {
+    public void setFavouriteCities(Set<City> favourites) {
         favouriteCitiesAdapter.updateData(new ArrayList<>(favourites));
     }
 
@@ -112,7 +112,7 @@ public class HomeScreenFragment extends android.support.v4.app.Fragment implemen
     }
 
     @Override
-    public void onCityClicked(FavouriteCity city) {
+    public void onCityClicked(City city) {
         presenter.onCityClicked(city);
     }
 }

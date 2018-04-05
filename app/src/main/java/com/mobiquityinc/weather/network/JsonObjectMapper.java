@@ -9,7 +9,7 @@ public class JsonObjectMapper extends ObjectMapper {
 
     public JsonObjectMapper() {
         super();
-        setPropertyNamingStrategy(PropertyNamingStrategy.UPPER_CAMEL_CASE);
+        setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
         configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true);
         disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
     }

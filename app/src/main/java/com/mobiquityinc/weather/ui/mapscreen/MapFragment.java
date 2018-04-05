@@ -19,7 +19,6 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.mobiquityinc.weather.R;
 import com.mobiquityinc.weather.domain.FavouriteCityRepositoryImpl;
-import com.mobiquityinc.weather.domain.entities.FavouriteCity;
 import com.mobiquityinc.weather.network.JsonObjectMapper;
 
 import java.util.Locale;
@@ -34,7 +33,7 @@ public class MapFragment extends android.support.v4.app.Fragment implements MapS
     private Marker marker;
 
     public interface MapScreenActionListener {
-        void onLocationSaved(final LatLng latLng);
+        void onLocationSelected(final LatLng latLng);
     }
 
     private MapFragment.MapScreenActionListener callback;
@@ -138,8 +137,8 @@ public class MapFragment extends android.support.v4.app.Fragment implements MapS
     }
 
     @Override
-    public void launchCityScreen(FavouriteCity city) {
-        callback.onLocationSaved(city.getCoord());
+    public void launchCityScreen(LatLng latLng) {
+        callback.onLocationSelected(latLng);
     }
 
     @Override

@@ -1,7 +1,7 @@
 package com.mobiquityinc.weather.ui.homescreen;
 
 import com.mobiquityinc.weather.domain.FavouriteCityRepository;
-import com.mobiquityinc.weather.domain.entities.FavouriteCity;
+import com.mobiquityinc.weather.domain.entities.City;
 
 import java.io.IOException;
 
@@ -37,7 +37,7 @@ public class HomeScreenPresenter implements HomeScreenContract.Presenter {
     }
 
     @Override
-    public void onCityClicked(FavouriteCity city) {
+    public void onCityClicked(City city) {
         view.launchCityScreen(city);
     }
 }

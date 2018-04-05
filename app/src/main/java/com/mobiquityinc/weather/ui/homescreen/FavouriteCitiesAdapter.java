@@ -6,16 +6,15 @@ import android.view.ViewGroup;
 
 import com.mobiquityinc.weather.R;
 import com.mobiquityinc.weather.domain.entities.City;
-import com.mobiquityinc.weather.domain.entities.FavouriteCity;
 
 import java.util.List;
 
 public class FavouriteCitiesAdapter extends RecyclerView.Adapter<CityItemView> {
 
-    private List<FavouriteCity> cities;
+    private List<City> cities;
     private CityItemClickedListener onCityClickListener;
 
-    public FavouriteCitiesAdapter(List<FavouriteCity> cities, CityItemClickedListener onCityClickListener) {
+    public FavouriteCitiesAdapter(List<City> cities, CityItemClickedListener onCityClickListener) {
         this.cities = cities;
         this.onCityClickListener = onCityClickListener;
     }
@@ -26,7 +25,7 @@ public class FavouriteCitiesAdapter extends RecyclerView.Adapter<CityItemView> {
     }
 
     @Override public void onBindViewHolder(final CityItemView holder, final int position) {
-        final FavouriteCity city = cities.get(position);
+        final City city = cities.get(position);
         holder.bind(city);
     }
 
@@ -34,12 +33,12 @@ public class FavouriteCitiesAdapter extends RecyclerView.Adapter<CityItemView> {
         return cities.size();
     }
 
-    public void updateData(final List<FavouriteCity> cities) {
+    public void updateData(final List<City> cities) {
         this.cities = cities;
         notifyDataSetChanged();
     }
 
-    public FavouriteCity getItemAtPosition(final int childAdapterPosition) {
+    public City getItemAtPosition(final int childAdapterPosition) {
         return cities.get(childAdapterPosition);
     }
 

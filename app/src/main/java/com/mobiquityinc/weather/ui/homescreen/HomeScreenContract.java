@@ -1,7 +1,7 @@
 package com.mobiquityinc.weather.ui.homescreen;
 
 
-import com.mobiquityinc.weather.domain.entities.FavouriteCity;
+import com.mobiquityinc.weather.domain.entities.City;
 import com.mobiquityinc.weather.ui.BasePresenter;
 import com.mobiquityinc.weather.ui.BaseView;
 
@@ -11,19 +11,19 @@ public interface HomeScreenContract {
 
     interface View extends BaseView<Presenter> {
 
-        void setFavouriteCities(Set<FavouriteCity> favourites);
+        void setFavouriteCities(Set<City> favourites);
 
         void initiateUI();
 
         void startMapFragment();
 
-        void launchCityScreen(FavouriteCity city);
+        void launchCityScreen(City city);
     }
 
     interface Presenter extends BasePresenter {
 
         void addCityButtonClicked();
 
-        void onCityClicked(FavouriteCity city);
+        void onCityClicked(City city);
     }
 }

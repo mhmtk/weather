@@ -6,7 +6,7 @@ import android.widget.FrameLayout;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.mobiquityinc.weather.R;
-import com.mobiquityinc.weather.domain.entities.FavouriteCity;
+import com.mobiquityinc.weather.domain.entities.City;
 import com.mobiquityinc.weather.ui.cityscreen.CityScreenFragment;
 import com.mobiquityinc.weather.ui.homescreen.HomeScreenFragment;
 import com.mobiquityinc.weather.ui.mapscreen.MapFragment;
@@ -23,6 +23,9 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     protected FrameLayout fragmentContainer;
 
     private MainContract.Presenter presenter;
+    private CityScreenFragment cityScreenFragment;
+    private MapFragment mapFragment;
+    private HomeScreenFragment homeScreenFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     }
 
     @Override
-    public void onCitySelected(FavouriteCity city) {
+    public void onCitySelected(City city) {
         presenter.citySelected(city);
     }
 
@@ -55,26 +58,38 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
     @Override
     public void displayHomeScreen() {
-        HomeScreenFragment homeScreenFragment = HomeScreenFragment.getInstance();
-        getSupportFragmentManager()
-                .beginTransaction()
-                .add(R.id.fragment_container_frame_layout, homeScreenFragment)
-                .commit();
+        if (homeScreenFragment == null) {
+            homeScreenFragment = HomeScreenFragment.getInstance();
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .add(R.id.fragment_container_frame_layout, homeScreenFragment)
+                    .commit();
+        }
     }
 
     @Override
     public void launchMap() {
-        MapFragment mapFragment = MapFragment.getInstance();
+        mapFragment = MapFragment.getInstance();
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container_frame_layout, mapFragment)
-                .addToBackStack("map")
+                .addToBackStack(null)
                 .commit();
     }
 
     @Override
-    public void onLocationSaved(LatLng latLng) {
-        CityScreenFragment cityScreenFragment = CityScreenFragment.getInstance(latLng);
+    public void launchCityScreen(LatLng latLng) {
+        cityScreenFragment = CityScreenFragment.getInstance(latLng);
         getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container_frame_layout, cityScreenFragment)
+                .addToBackStack(null)
+                .commit();
+    }
+
+    @Override
+    public void onLocationSelected(LatLng latLng) {
+        cityScreenFragment = CityScreenFragment.getInstance(latLng);
+        getSupportFragmentManager().beginTransaction()
+                .remove(mapFragment)
                 .replace(R.id.fragment_container_frame_layout, cityScreenFragment)
                 .addToBackStack(null)
                 .commit();

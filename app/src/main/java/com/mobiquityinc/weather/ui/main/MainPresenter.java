@@ -1,6 +1,7 @@
 package com.mobiquityinc.weather.ui.main;
 
-import com.mobiquityinc.weather.domain.entities.FavouriteCity;
+import com.google.android.gms.maps.model.LatLng;
+import com.mobiquityinc.weather.domain.entities.City;
 
 public class MainPresenter implements MainContract.Presenter {
 
@@ -17,8 +18,8 @@ public class MainPresenter implements MainContract.Presenter {
     }
 
     @Override
-    public void citySelected(FavouriteCity city) {
-
+    public void citySelected(City city) {
+        view.launchCityScreen(new LatLng(city.getCoord().getLat(), city.getCoord().getLon()));
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.mobiquityinc.weather.ui.main;
 
-import com.mobiquityinc.weather.domain.entities.FavouriteCity;
+import com.google.android.gms.maps.model.LatLng;
+import com.mobiquityinc.weather.domain.entities.City;
 import com.mobiquityinc.weather.ui.BasePresenter;
 import com.mobiquityinc.weather.ui.BaseView;
 
@@ -11,11 +12,13 @@ public class MainContract {
         void displayHomeScreen();
 
         void launchMap();
+
+        void launchCityScreen(LatLng latLng);
     }
 
     interface Presenter extends BasePresenter {
 
-        void citySelected(FavouriteCity city);
+        void citySelected(City city);
 
         void addCityClicked();
     }

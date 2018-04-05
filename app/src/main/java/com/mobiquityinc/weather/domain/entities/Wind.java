@@ -1,6 +1,6 @@
 package com.mobiquityinc.weather.domain.entities;
 
-class Wind {
+public class Wind {
 
     private double speed;
     private int deg;
