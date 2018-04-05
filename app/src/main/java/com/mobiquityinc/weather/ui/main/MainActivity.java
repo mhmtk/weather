@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         switch (item.getItemId()) {
             case R.id.action_help:
                 presenter.helpButtonClicked();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -81,6 +82,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
     @Override
     public void displayHomeScreen() {
+        hideBackButton();
         if (homeScreenFragment == null && mapFragment == null && cityScreenFragment == null) {
             homeScreenFragment = HomeScreenFragment.getInstance();
             getSupportFragmentManager()
@@ -92,6 +94,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
     @Override
     public void launchMap() {
+        displayBackButton();
         mapFragment = MapFragment.getInstance();
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container_frame_layout, mapFragment)
@@ -101,6 +104,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
     @Override
     public void launchCityScreen(LatLng latLng) {
+        displayBackButton();
         cityScreenFragment = CityScreenFragment.getInstance(latLng);
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container_frame_layout, cityScreenFragment)
@@ -115,6 +119,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
     @Override
     public void onLocationSelected(LatLng latLng) {
+        displayBackButton();
         cityScreenFragment = CityScreenFragment.getInstance(latLng);
         getSupportFragmentManager().beginTransaction()
                 .remove(mapFragment)
@@ -124,6 +129,29 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
                 .replace(R.id.fragment_container_frame_layout, cityScreenFragment)
                 .addToBackStack(null)
                 .commit();
+    }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if(getSupportFragmentManager().getBackStackEntryCount() == 0) {
+            hideBackButton();
+        }
+    }
+
+    public void displayBackButton() {
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+    }
+
+    public void hideBackButton() {
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setDisplayShowHomeEnabled(false);
     }
 }
