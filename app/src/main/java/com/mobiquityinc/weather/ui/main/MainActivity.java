@@ -2,6 +2,10 @@ package com.mobiquityinc.weather.ui.main;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 import com.google.android.gms.maps.model.LatLng;
@@ -31,6 +35,8 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         ButterKnife.bind(this);
         presenter = new MainPresenter(this);
     }
@@ -39,6 +45,23 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     protected void onResume() {
         super.onResume();
         presenter.start();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_help:
+                presenter.helpButtonClicked();
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override
@@ -83,6 +106,11 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
                 .replace(R.id.fragment_container_frame_layout, cityScreenFragment)
                 .addToBackStack(null)
                 .commit();
+    }
+
+    @Override
+    public void launchHelpScreen() {
+
     }
 
     @Override

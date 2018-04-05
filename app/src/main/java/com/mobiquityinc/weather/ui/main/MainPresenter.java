@@ -26,4 +26,9 @@ public class MainPresenter implements MainContract.Presenter {
     public void addCityClicked() {
         view.launchMap();
     }
+
+    @Override
+    public void helpButtonClicked() {
+        view.launchHelpScreen();
+    }
 }

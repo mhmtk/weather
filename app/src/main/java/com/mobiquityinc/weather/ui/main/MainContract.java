@@ -14,6 +14,8 @@ public class MainContract {
         void launchMap();
 
         void launchCityScreen(LatLng latLng);
+
+        void launchHelpScreen();
     }
 
     interface Presenter extends BasePresenter {
@@ -21,5 +23,7 @@ public class MainContract {
         void citySelected(City city);
 
         void addCityClicked();
+
+        void helpButtonClicked();
     }
 }
