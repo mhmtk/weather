@@ -1,13 +1,13 @@
 package com.mobiquityinc.weather.ui.cityscreen;
 
-import android.text.TextUtils;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.android.gms.maps.model.LatLng;
 import com.mobiquityinc.weather.domain.FavouriteCityRepository;
+import com.mobiquityinc.weather.domain.entities.City;
 import com.mobiquityinc.weather.domain.entities.Forecast;
 import com.mobiquityinc.weather.network.ApiManager;
 import com.mobiquityinc.weather.network.DownloadForecast;
+import com.mobiquityinc.weather.utils.StringUtils;
 
 public class CityScreenPresenter implements CityScreenContract.Presenter,
         DownloadForecast.Callback {
@@ -48,11 +48,12 @@ public class CityScreenPresenter implements CityScreenContract.Presenter,
     @Override
     public void downloadFinished(Forecast forecast) {
         downloaded = true;
+        final City city = forecast.getCity();
         try {
-            if (TextUtils.isEmpty(forecast.getCity().getName())) {
-                forecast.getCity().setName(DEFAULT_NO_NAME);
+            if (StringUtils.isEmpty(city.getName())) {
+                city.setName(DEFAULT_NO_NAME);
             }
-            favouriteCityRepository.addFavourite(forecast.getCity());
+            favouriteCityRepository.addFavourite(city);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }

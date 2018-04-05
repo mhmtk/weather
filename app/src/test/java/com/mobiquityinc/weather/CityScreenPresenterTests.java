@@ -40,31 +40,29 @@ public class CityScreenPresenterTests {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
+        presenter = new CityScreenPresenter(dummyLatLng, mockFavouriteCityRepository, mockApiManager, mockView);
+        when(mockForecast.getCity()).thenReturn(Mockito.mock(City.class));
     }
 
     @Test
-    public void createPresenter_setsView() {
-        presenter = new CityScreenPresenter(dummyLatLng, mockFavouriteCityRepository, mockApiManager, mockView);
+    public void createPresenter_setsPresenter() {
         verify(mockView).setPresenter(presenter);
     }
 
     @Test
     public void start_initializesView() {
-        presenter = new CityScreenPresenter(dummyLatLng, mockFavouriteCityRepository, mockApiManager, mockView);
         presenter.start();
         verify(mockView).initiateUI();
     }
 
     @Test
     public void start_startsDownload() {
-        presenter = new CityScreenPresenter(dummyLatLng, mockFavouriteCityRepository, mockApiManager, mockView);
         presenter.start();
         verify(mockApiManager).downloadForecast(eq(presenter), any(Double[].class));
     }
 
     @Test
     public void start_startsDownloadOnce() {
-        presenter = new CityScreenPresenter(dummyLatLng, mockFavouriteCityRepository, mockApiManager, mockView);
         presenter.start();
         presenter.downloadFinished(mockForecast);
         presenter.start();
@@ -73,7 +71,6 @@ public class CityScreenPresenterTests {
 
     @Test
     public void downloadFinished_addsFavourite() throws JsonProcessingException {
-        presenter = new CityScreenPresenter(dummyLatLng, mockFavouriteCityRepository, mockApiManager, mockView);
         City mockCity = Mockito.mock(City.class);
         when(mockForecast.getCity()).thenReturn(mockCity);
         presenter.downloadFinished(mockForecast);
@@ -82,7 +79,6 @@ public class CityScreenPresenterTests {
 
     @Test
     public void downloadFinished_updatesView() throws JsonProcessingException {
-        presenter = new CityScreenPresenter(dummyLatLng, mockFavouriteCityRepository, mockApiManager, mockView);
         presenter.downloadFinished(mockForecast);
         verify(mockView).displayData(mockForecast);
     }
