@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -21,6 +20,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.mobiquityinc.weather.R;
 import com.mobiquityinc.weather.domain.FavouriteCityRepositoryImpl;
 import com.mobiquityinc.weather.domain.entities.FavouriteCity;
+import com.mobiquityinc.weather.network.JsonObjectMapper;
 
 import java.util.Locale;
 
@@ -72,7 +72,7 @@ public class MapFragment extends android.support.v4.app.Fragment implements MapS
         ButterKnife.bind(this, view);
         presenter = new MapScreenPresenter(
                 new FavouriteCityRepositoryImpl(PreferenceManager.getDefaultSharedPreferences(getActivity()),
-                        new ObjectMapper()),
+                        new JsonObjectMapper()),
                 new Geocoder(getActivity(), Locale.getDefault()),
                 this);
         mapView.onCreate(savedInstanceState);

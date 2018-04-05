@@ -11,11 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mobiquityinc.weather.R;
 import com.mobiquityinc.weather.domain.FavouriteCityRepositoryImpl;
-import com.mobiquityinc.weather.domain.entities.City;
 import com.mobiquityinc.weather.domain.entities.FavouriteCity;
+import com.mobiquityinc.weather.network.JsonObjectMapper;
 import com.mobiquityinc.weather.ui.view.RecyclerView;
 
 import java.util.ArrayList;
@@ -46,6 +45,7 @@ public class HomeScreenFragment extends android.support.v4.app.Fragment implemen
         HomeScreenFragment fragment = new HomeScreenFragment();
         return fragment;
     }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -66,7 +66,7 @@ public class HomeScreenFragment extends android.support.v4.app.Fragment implemen
         ButterKnife.bind(this, view);
         presenter = new HomeScreenPresenter(
                 new FavouriteCityRepositoryImpl(PreferenceManager.getDefaultSharedPreferences(getActivity()),
-                        new ObjectMapper()), this);
+                        new JsonObjectMapper()), this);
         return view;
     }
 
