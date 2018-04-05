@@ -12,6 +12,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.mobiquityinc.weather.R;
 import com.mobiquityinc.weather.domain.entities.City;
 import com.mobiquityinc.weather.ui.cityscreen.CityScreenFragment;
+import com.mobiquityinc.weather.ui.help.HelpScreenFragment;
 import com.mobiquityinc.weather.ui.homescreen.HomeScreenFragment;
 import com.mobiquityinc.weather.ui.mapscreen.MapFragment;
 
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     private CityScreenFragment cityScreenFragment;
     private MapFragment mapFragment;
     private HomeScreenFragment homeScreenFragment;
+    private HelpScreenFragment helpScreenFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,7 +116,12 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
     @Override
     public void launchHelpScreen() {
-
+        displayBackButton();
+        helpScreenFragment = HelpScreenFragment.getInstance();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container_frame_layout, helpScreenFragment)
+                .addToBackStack(null)
+                .commit();
     }
 
     @Override
