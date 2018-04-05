@@ -4,7 +4,7 @@ import com.mobiquityinc.weather.BuildConfig;
 
 public class UrlBuilder {
 
-    private final static String BASE_URL = "http://api.openweathermap.org/data/2.5";
+    private final static String BASE_URL = "https://api.openweathermap.org/data/2.5";
     private final static String FORECAST_ENDPOINT = "forecast";
     private final static String PARAMETER_BEGINNING = "?";
     private final static String LATITUDE_FIELD = "lat=";
