@@ -57,4 +57,10 @@ public class HomeScreenPresenterTests {
         verify(mockFavouriteCityRepository).removeFavourite(city);
     }
 
+    @Test
+    public void onCityClicked_launchesCityScreen() {
+        presenter.onCityClicked(city);
+        verify(mockView).launchCityScreen(city);
+    }
+
 }
