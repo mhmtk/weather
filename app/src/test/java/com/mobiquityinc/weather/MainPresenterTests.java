@@ -28,24 +28,22 @@ public class MainPresenterTests {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
+        presenter = new MainPresenter(mockView);
     }
 
     @Test
     public void createPresenter_setsView() {
-        presenter = new MainPresenter(mockView);
         verify(mockView).setPresenter(presenter);
     }
 
     @Test
     public void start_displaysHomeScreen() {
-        presenter = new MainPresenter(mockView);
         presenter.start();
         verify(mockView).displayHomeScreen();
     }
 
     @Test
     public void citySelected_launchesCityScreen() {
-        presenter = new MainPresenter(mockView);
         when(city.getCoord()).thenReturn(new LatLon(1, 1));
         presenter.citySelected(city);
         verify(mockView).launchCityScreen(new LatLng(1,1));
@@ -53,14 +51,12 @@ public class MainPresenterTests {
 
     @Test
     public void helpButtonClicked_launchesHelpScreen() {
-        presenter = new MainPresenter(mockView);
         presenter.helpButtonClicked();
         verify(mockView).launchHelpScreen();
     }
 
     @Test
     public void addCityButtonClicked_launchesMapScreen() {
-        presenter = new MainPresenter(mockView);
         presenter.addCityClicked();
         verify(mockView).launchMap();
     }

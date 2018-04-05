@@ -30,31 +30,29 @@ public class HomeScreenPresenterTests {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
+        presenter = new HomeScreenPresenter(mockFavouriteCityRepository, mockView);
+
     }
 
     @Test
-    public void createPresenter_setsView() {
-        presenter = new HomeScreenPresenter(mockFavouriteCityRepository, mockView);
+    public void init_setsPresenter() {
         verify(mockView).setPresenter(presenter);
     }
 
     @Test
     public void start_initiatesUI() {
-        presenter = new HomeScreenPresenter(mockFavouriteCityRepository, mockView);
         presenter.start();
         verify(mockView).initiateUI();
     }
 
     @Test
     public void addCityButtonClicked_startsMapFragment() {
-        presenter = new HomeScreenPresenter(mockFavouriteCityRepository, mockView);
         presenter.addCityButtonClicked();
         verify(mockView).startMapFragment();
     }
 
     @Test
     public void onCityDeleteClicked_removesCity() throws IOException {
-        presenter = new HomeScreenPresenter(mockFavouriteCityRepository, mockView);
         presenter.onCityDeleteClicked(city);
         verify(mockFavouriteCityRepository).removeFavourite(city);
     }
