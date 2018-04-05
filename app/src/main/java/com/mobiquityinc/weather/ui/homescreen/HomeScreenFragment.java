@@ -1,6 +1,6 @@
 package com.mobiquityinc.weather.ui.homescreen;
 
-import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
@@ -15,6 +15,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mobiquityinc.weather.R;
 import com.mobiquityinc.weather.domain.FavouriteCityRepositoryImpl;
 import com.mobiquityinc.weather.domain.entities.City;
+import com.mobiquityinc.weather.domain.entities.FavouriteCity;
 import com.mobiquityinc.weather.ui.view.RecyclerView;
 
 import java.util.ArrayList;
@@ -30,7 +31,7 @@ public class HomeScreenFragment extends android.support.v4.app.Fragment implemen
     private HomeScreenActionListener callback;
 
     public interface HomeScreenActionListener {
-        void onCitySelected(final City city);
+        void onCitySelected(final FavouriteCity city);
         void onAddClicked();
     }
 
@@ -46,13 +47,13 @@ public class HomeScreenFragment extends android.support.v4.app.Fragment implemen
         return fragment;
     }
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
+    public void onAttach(Context context) {
+        super.onAttach(context);
         try {
-            callback = (HomeScreenActionListener) activity;
+            callback = (HomeScreenActionListener) context;
         } catch (ClassCastException e) {
 
-            throw new ClassCastException(activity.toString()
+            throw new ClassCastException(context.toString()
                     + " must implement HomeScreenActionListener");
         }
     }
@@ -86,7 +87,7 @@ public class HomeScreenFragment extends android.support.v4.app.Fragment implemen
         favouriteCitiesRecyclerView.setItemAnimator(new DefaultItemAnimator());
         favouriteCitiesRecyclerView.setHasFixedSize(true);
         favouriteCitiesRecyclerView.setEmptyView(emptyTextView);
-        favouriteCitiesAdapter = new FavouriteCitiesAdapter(Collections.<City>emptyList(), this);
+        favouriteCitiesAdapter = new FavouriteCitiesAdapter(Collections.<FavouriteCity>emptyList(), this);
         favouriteCitiesRecyclerView.setAdapter(favouriteCitiesAdapter);
     }
 
@@ -96,12 +97,12 @@ public class HomeScreenFragment extends android.support.v4.app.Fragment implemen
     }
 
     @Override
-    public void launchCityScreen(City city) {
+    public void launchCityScreen(FavouriteCity city) {
         callback.onCitySelected(city);
     }
 
     @Override
-    public void setFavouriteCities(Set<City> favourites) {
+    public void setFavouriteCities(Set<FavouriteCity> favourites) {
         favouriteCitiesAdapter.updateData(new ArrayList<>(favourites));
     }
 
@@ -111,7 +112,7 @@ public class HomeScreenFragment extends android.support.v4.app.Fragment implemen
     }
 
     @Override
-    public void onCityClicked(City city) {
+    public void onCityClicked(FavouriteCity city) {
         presenter.onCityClicked(city);
     }
 }

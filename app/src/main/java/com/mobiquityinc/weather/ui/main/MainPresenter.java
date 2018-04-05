@@ -1,6 +1,6 @@
 package com.mobiquityinc.weather.ui.main;
 
-import com.mobiquityinc.weather.domain.entities.City;
+import com.mobiquityinc.weather.domain.entities.FavouriteCity;
 
 public class MainPresenter implements MainContract.Presenter {
 
@@ -17,12 +17,12 @@ public class MainPresenter implements MainContract.Presenter {
     }
 
     @Override
-    public void citySelected(City city) {
+    public void citySelected(FavouriteCity city) {
 
     }
 
     @Override
     public void addCityClicked() {
-
+        view.launchMap();
     }
 }

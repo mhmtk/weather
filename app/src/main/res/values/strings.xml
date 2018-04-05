@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Weather</string>
     <string name="favourites_empty">No favourites to show.</string>
+    <string name="error_message_location">Trouble retreiving location, please try again</string>
 </resources>
