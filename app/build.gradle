@@ -11,7 +11,7 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         buildConfigField "String", "API_KEY", API_KEY
-        manifestPlaceholders = [mapsApiKey: MAPS_API_KEY]
+        resValue "string", "maps_api_key", MAPS_API_KEY
     }
     buildTypes {
         release {

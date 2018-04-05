@@ -50,6 +50,11 @@ public class City {
     }
 
     @Override
+    public int hashCode() {
+        return getId();
+    }
+
+    @Override
     public boolean equals(Object obj) {
         return obj instanceof City && ((City) obj).getId() == this.getId();
     }

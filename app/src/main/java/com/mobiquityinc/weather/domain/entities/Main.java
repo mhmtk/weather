@@ -1,6 +1,6 @@
 package com.mobiquityinc.weather.domain.entities;
 
-class Main {
+public class Main {
 
     private double temp;
     private int pressure;

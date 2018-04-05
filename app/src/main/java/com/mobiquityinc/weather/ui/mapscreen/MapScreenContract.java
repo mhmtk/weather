@@ -1,7 +1,6 @@
 package com.mobiquityinc.weather.ui.mapscreen;
 
 import com.google.android.gms.maps.model.LatLng;
-import com.mobiquityinc.weather.domain.entities.FavouriteCity;
 import com.mobiquityinc.weather.ui.BasePresenter;
 import com.mobiquityinc.weather.ui.BaseView;
 
@@ -11,7 +10,7 @@ public class MapScreenContract {
 
         void replaceMarker(LatLng latLng);
 
-        void launchCityScreen(FavouriteCity city);
+        void launchCityScreen(LatLng latLng);
 
         void displayLocationError();
 

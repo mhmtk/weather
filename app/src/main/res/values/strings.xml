@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">Weather</string>
     <string name="favourites_empty">No favourites to show.</string>
-    <string name="error_message_location">Trouble retreiving location, please try again</string>
+    <string name="error_message_location">Trouble retrieving location, please try again</string>
+    <string name="temperature">Temperature: %f</string>
+    <string name="humidity">Humidity: %d</string>
+    <string name="rain_chance">Chance of Rain: %f</string>
+    <string name="wind">Wind: %1$f at %2$d degrees</string>
 </resources>
