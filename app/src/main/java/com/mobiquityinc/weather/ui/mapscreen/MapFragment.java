@@ -1,9 +1,7 @@
 package com.mobiquityinc.weather.ui.mapscreen;
 
 import android.content.Context;
-import android.location.Geocoder;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
@@ -18,10 +16,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.mobiquityinc.weather.R;
-import com.mobiquityinc.weather.domain.FavouriteCityRepositoryImpl;
-import com.mobiquityinc.weather.network.JsonObjectMapper;
-
-import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -69,11 +63,7 @@ public class MapFragment extends android.support.v4.app.Fragment implements MapS
             @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_map, container, false);
         ButterKnife.bind(this, view);
-        presenter = new MapScreenPresenter(
-                new FavouriteCityRepositoryImpl(PreferenceManager.getDefaultSharedPreferences(getActivity()),
-                        new JsonObjectMapper()),
-                new Geocoder(getActivity(), Locale.getDefault()),
-                this);
+        presenter = new MapScreenPresenter(this);
         mapView.onCreate(getArguments());
         mapView.getMapAsync(this);
         return view;

@@ -6,7 +6,7 @@ import com.mobiquityinc.weather.ui.BaseView;
 
 public class MapScreenContract {
 
-    interface View extends BaseView<Presenter> {
+    public interface View extends BaseView<Presenter> {
 
         void replaceMarker(LatLng latLng);
 
