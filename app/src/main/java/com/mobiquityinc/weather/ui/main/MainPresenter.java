@@ -6,8 +6,16 @@ import com.mobiquityinc.weather.domain.entities.City;
 public class MainPresenter implements MainContract.Presenter {
 
     private MainContract.View view;
+    private static MainPresenter instance;
 
-    public MainPresenter(MainContract.View view) {
+    public static MainPresenter getInstance(MainContract.View view) {
+        if(instance == null) {
+            instance = new MainPresenter(view);
+        }
+        return instance;
+    }
+
+    private MainPresenter(MainContract.View view) {
         this.view = view;
         view.setPresenter(this);
     }

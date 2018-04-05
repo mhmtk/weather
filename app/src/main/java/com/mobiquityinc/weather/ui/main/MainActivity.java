@@ -1,5 +1,6 @@
 package com.mobiquityinc.weather.ui.main;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -37,10 +38,10 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ButterKnife.bind(this);
-        presenter = new MainPresenter(this);
+        presenter = MainPresenter.getInstance(this);
     }
 
     @Override
@@ -84,9 +85,9 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
     @Override
     public void displayHomeScreen() {
-        hideBackButton();
         if (homeScreenFragment == null && mapFragment == null && cityScreenFragment == null) {
             homeScreenFragment = HomeScreenFragment.getInstance();
+            hideBackButton();
             getSupportFragmentManager()
                     .beginTransaction()
                     .add(R.id.fragment_container_frame_layout, homeScreenFragment)
@@ -142,6 +143,14 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        if(getSupportFragmentManager().getBackStackEntryCount() > 0) {
+            displayBackButton();
+        }
     }
 
     @Override
