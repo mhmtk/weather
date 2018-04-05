@@ -7,7 +7,7 @@ import com.mobiquityinc.weather.ui.BaseView;
 
 public class MainContract {
 
-    interface View extends BaseView<Presenter> {
+    public interface View extends BaseView<Presenter> {
 
         void displayHomeScreen();
 
