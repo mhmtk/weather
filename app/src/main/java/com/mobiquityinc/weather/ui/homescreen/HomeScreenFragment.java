@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +20,6 @@ import com.mobiquityinc.weather.ui.view.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -85,6 +85,7 @@ public class HomeScreenFragment extends android.support.v4.app.Fragment implemen
     public void initiateUI() {
         favouriteCitiesRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         favouriteCitiesRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        favouriteCitiesRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
         favouriteCitiesRecyclerView.setHasFixedSize(true);
         favouriteCitiesRecyclerView.setEmptyView(emptyTextView);
         favouriteCitiesAdapter = new FavouriteCitiesAdapter(Collections.<City>emptyList(), this);
@@ -102,8 +103,8 @@ public class HomeScreenFragment extends android.support.v4.app.Fragment implemen
     }
 
     @Override
-    public void setFavouriteCities(Set<City> favourites) {
-        favouriteCitiesAdapter.updateData(new ArrayList<>(favourites));
+    public void setFavouriteCities(ArrayList<City> favourites) {
+        favouriteCitiesAdapter.updateData(favourites);
     }
 
     @OnClick(R.id.fab_add_city)
@@ -114,5 +115,10 @@ public class HomeScreenFragment extends android.support.v4.app.Fragment implemen
     @Override
     public void onCityClicked(City city) {
         presenter.onCityClicked(city);
+    }
+
+    @Override
+    public void onCityDeleteClicked(City city) {
+        presenter.onCityDeleteClicked(city);
     }
 }

@@ -37,12 +37,4 @@ public class FavouriteCitiesAdapter extends RecyclerView.Adapter<CityItemView> {
         this.cities = cities;
         notifyDataSetChanged();
     }
-
-    public City getItemAtPosition(final int childAdapterPosition) {
-        return cities.get(childAdapterPosition);
-    }
-
-    public void notifyItemChanged(final City city) {
-        notifyItemChanged(cities.indexOf(city));
-    }
 }

@@ -74,7 +74,7 @@ public class MapFragment extends android.support.v4.app.Fragment implements MapS
                         new JsonObjectMapper()),
                 new Geocoder(getActivity(), Locale.getDefault()),
                 this);
-        mapView.onCreate(savedInstanceState);
+        mapView.onCreate(getArguments());
         mapView.getMapAsync(this);
         return view;
     }

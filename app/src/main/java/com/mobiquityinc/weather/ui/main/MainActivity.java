@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
     @Override
     public void displayHomeScreen() {
-        if (homeScreenFragment == null) {
+        if (homeScreenFragment == null && mapFragment == null && cityScreenFragment == null) {
             homeScreenFragment = HomeScreenFragment.getInstance();
             getSupportFragmentManager()
                     .beginTransaction()
@@ -90,8 +90,12 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         cityScreenFragment = CityScreenFragment.getInstance(latLng);
         getSupportFragmentManager().beginTransaction()
                 .remove(mapFragment)
+                .commit();
+        getSupportFragmentManager().popBackStack();
+        getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container_frame_layout, cityScreenFragment)
                 .addToBackStack(null)
                 .commit();
+
     }
 }

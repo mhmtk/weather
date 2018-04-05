@@ -14,14 +14,17 @@ public class CityItemView extends RecyclerView.ViewHolder implements View.OnClic
 
     @BindView(R.id.text_view_label)
     protected TextView labelTextView;
-    private final CityItemClickedListener onClickListener;
+    @BindView(R.id.delete_image_button)
+    protected View deleteButton;
+    private final CityItemClickedListener cityItemClickListener;
     private City city;
 
-    public CityItemView(final View itemView, final CityItemClickedListener onClickListener) {
+    public CityItemView(final View itemView, final CityItemClickedListener cityItemClickListener) {
         super(itemView);
-        this.onClickListener = onClickListener;
+        this.cityItemClickListener = cityItemClickListener;
         ButterKnife.bind(this, itemView);
         itemView.setOnClickListener(this);
+        deleteButton.setOnClickListener(this);
     }
 
     public void bind(final City city) {
@@ -31,6 +34,11 @@ public class CityItemView extends RecyclerView.ViewHolder implements View.OnClic
 
     @Override
     public void onClick(View view) {
-        onClickListener.onCityClicked(city);
+        if (view.getId() == itemView.getId()) {
+            cityItemClickListener.onCityClicked(city);
+        }
+        if (view.getId() == deleteButton.getId()) {
+            cityItemClickListener.onCityDeleteClicked(city);
+        }
     }
 }

@@ -5,10 +5,12 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.mobiquityinc.weather.R;
@@ -16,6 +18,9 @@ import com.mobiquityinc.weather.domain.FavouriteCityRepositoryImpl;
 import com.mobiquityinc.weather.domain.entities.Forecast;
 import com.mobiquityinc.weather.domain.entities.ForecastBlock;
 import com.mobiquityinc.weather.network.JsonObjectMapper;
+import com.mobiquityinc.weather.ui.view.RecyclerView;
+
+import java.util.Collections;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,19 +32,16 @@ public class CityScreenFragment extends Fragment implements CityScreenContract.V
     private CityScreenContract.Presenter presenter;
 
     private CityScreenActionListener callback;
+    private ForecastBlockAdapter forecastBlockAdapter;
 
     public interface CityScreenActionListener {
 
     }
 
-    @BindView(R.id.temperature)
-    protected TextView temperatureTextView;
-    @BindView(R.id.humidity)
-    protected TextView humidityTextView;
-    @BindView(R.id.rain_chance)
-    protected TextView rainChanceTextView;
-    @BindView(R.id.wind)
-    protected TextView windTextView;
+    @BindView(R.id.recycler_view_forecast)
+    protected RecyclerView forecastBlockRecyclerView;
+    @BindView(R.id.progress_bar)
+    protected View progressBar;
 
     public static CityScreenFragment getInstance(LatLng position) {
         CityScreenFragment fragment = new CityScreenFragment();
@@ -89,25 +91,17 @@ public class CityScreenFragment extends Fragment implements CityScreenContract.V
 
     @Override
     public void initiateUI() {
-
+        forecastBlockRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        forecastBlockRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        forecastBlockRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
+        forecastBlockRecyclerView.setHasFixedSize(true);
+        forecastBlockRecyclerView.setEmptyView(progressBar);
+        forecastBlockAdapter = new ForecastBlockAdapter(Collections.<ForecastBlock>emptyList());
+        forecastBlockRecyclerView.setAdapter(forecastBlockAdapter);
     }
 
     @Override
     public void displayData(Forecast forecast) {
-        ForecastBlock forecastBlock = forecast.getList().get(0);
-        if (forecastBlock.getMain() != null) {
-            temperatureTextView.setText(
-                    getString(R.string.temperature, forecastBlock.getMain().getTemp()));
-        humidityTextView.setText(getString(R.string.humidity, forecastBlock.getMain().getHumidity()));
-        }
-        if (forecastBlock.getRain() != null) {
-            rainChanceTextView.setText(
-                    getString(R.string.rain_chance, forecastBlock.getRain().getThreeHours()));
-        }
-        if (forecastBlock.getWind() != null ) {
-            windTextView.setText(getString(R.string.wind, forecastBlock.getWind().getSpeed(),
-                    forecastBlock.getWind().getDeg()));
-        }
-
+        forecastBlockAdapter.updateData(forecast.getList());
     }
 }

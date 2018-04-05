@@ -1,6 +1,8 @@
 package com.mobiquityinc.weather;
 
 
+import static org.mockito.Mockito.verify;
+
 import com.mobiquityinc.weather.domain.FavouriteCityRepository;
 import com.mobiquityinc.weather.ui.homescreen.HomeScreenContract;
 import com.mobiquityinc.weather.ui.homescreen.HomeScreenPresenter;
@@ -11,8 +13,6 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
-
-import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
 public class HomeScreenPresenterTests {
